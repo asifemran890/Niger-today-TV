@@ -9,24 +9,22 @@ const customerSchema = new mongoose.Schema(
     phone: {
       type: String,
       required: [true, "Content is required"],
-      minlength: 10,
-      maxlength: 2000,
     },
     email: {
       type: String,
-      required: [true, "Content is required"],
+      required: false,
+      unique: true,
+      trim: true,
+      lowercase: true,
     },
     startDate: {
       type: Date,
-      required: [true, "Content is required"],
     },
     durationMonths: {
       type: Number,
-      required: [true, "Content is required"],
     },
     expiresAt: {
       type: Date,
-      required: [true, "Content is required"],
     },
   },
   {
