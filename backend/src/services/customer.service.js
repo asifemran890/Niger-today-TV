@@ -18,6 +18,12 @@ const createCustomer = async (userBody) => {
   return Customer.create({ ...userBody, oneTimeCode });
 };
 
+const getCustomerAll = async () => {
+  const customers = await Customer.find();
+  return customers;
+};
+
 module.exports = {
   createCustomer,
+  getCustomerAll,
 };
