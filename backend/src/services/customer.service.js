@@ -4,7 +4,7 @@ const { Customer } = require("../models");
 
 const ApiError = require("../utils/ApiError");
 const { sendEmailVerification } = require("./email.service");
-
+//createCustomer
 const createCustomer = async (userBody) => {
   if (await User.isEmailTaken(userBody.email)) {
     throw new ApiError(httpStatus.BAD_REQUEST, "Email already taken");
@@ -18,12 +18,22 @@ const createCustomer = async (userBody) => {
   return Customer.create({ ...userBody, oneTimeCode });
 };
 
+
+//getCustomerAll 
 const getCustomerAll = async () => {
   const customers = await Customer.find();
   return customers;
 };
 
+//getCustomerById
+const getCustomerById = async (customerId) => {
+  const customer = await Customer.findById(customerId); // Or your ORM/DB query
+  if (!customer) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Customer not found");
+  }
+  return customer;
+};
 module.exports = {
   createCustomer,
-  getCustomerAll,
+  getCustomerAll, getCustomerById,
 };

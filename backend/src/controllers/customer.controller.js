@@ -16,6 +16,7 @@ const createCustomer = catchAsync(async (req, res) => {
   );
 });
 
+// getCustomerAll
 const getCustomerAll = catchAsync(async (req, res) => {
   const customers = await customerService.getCustomerAll();
   res.status(httpStatus.OK).json(
@@ -27,8 +28,22 @@ const getCustomerAll = catchAsync(async (req, res) => {
     }),
   );
 });
+// get customer :id
+const getCustomerById = catchAsync(async (req, res) => {
+  const customer = await customerService.getCustomerById(req.params.id);
+
+  res.status(httpStatus.OK).json(
+    response({
+      message: "Customer Details",
+      status: "OK",
+      statusCode: httpStatus.OK,
+      data: customer,
+    }),
+  );
+});
 
 module.exports = {
   createCustomer,
   getCustomerAll,
+  getCustomerById,
 };

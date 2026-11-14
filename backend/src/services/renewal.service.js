@@ -11,6 +11,13 @@ const createRenewal = async (renewalBody) => {
   return renewal;
 };
 
+//get Renewal All 
+const getRenewalAll = async () => {
+  const renewals = await Renewal.find();
+  return renewals;
+};
+
+
 module.exports = {
-  createRenewal,
+  createRenewal, getRenewalAll
 };
