@@ -1,13 +1,13 @@
 const httpStatus = require("http-status");
-const catchAsync = require("../utils/catchAsync");
-const ApiError = require("../utils/ApiError");
-const response = require("../config/response");
+const catchAsync = require("../../utils/catchAsync");
+const ApiError = require("../../utils/ApiError");
+const response = require("../../config/response");
 const {
   authService,
   userService,
   tokenService,
   emailService,
-} = require("../services");
+} = require("../../services");
 
 const register = catchAsync(async (req, res) => {
   const { email, fullName, firstName, lastName, ...rest } = req.body;
@@ -20,7 +20,7 @@ const register = catchAsync(async (req, res) => {
         firstName,
         lastName,
         email,
-        ...rest
+        ...rest,
       });
     } else if (!isUser.isEmailVerified) {
       await userService.isUpdateUser(isUser.id, {
@@ -28,7 +28,7 @@ const register = catchAsync(async (req, res) => {
         firstName,
         lastName,
         email,
-        ...rest
+        ...rest,
       });
     } else {
       throw new ApiError(httpStatus.BAD_REQUEST, "Email already taken");
@@ -39,7 +39,7 @@ const register = catchAsync(async (req, res) => {
       firstName,
       lastName,
       email,
-      ...rest
+      ...rest,
     });
   }
 
@@ -49,7 +49,7 @@ const register = catchAsync(async (req, res) => {
       status: "OK",
       statusCode: httpStatus.CREATED,
       data: {},
-    })
+    }),
   );
 });
 
@@ -66,7 +66,11 @@ const login = catchAsync(async (req, res) => {
   if (!isUser) {
     throw new ApiError(httpStatus.NOT_FOUND, "No users found with this email");
   }
-  const user = await authService.loginUserWithEmailAndPassword(email, password, fcmToken);
+  const user = await authService.loginUserWithEmailAndPassword(
+    email,
+    password,
+    fcmToken,
+  );
 
   setTimeout(async () => {
     try {
@@ -87,7 +91,7 @@ const login = catchAsync(async (req, res) => {
       status: "OK",
       statusCode: httpStatus.OK,
       data: { user, tokens },
-    })
+    }),
   );
 });
 
@@ -98,7 +102,7 @@ const logout = catchAsync(async (req, res) => {
       message: "LogOut Successful",
       status: "OK",
       statusCode: httpStatus.OK,
-    })
+    }),
   );
 });
 
@@ -112,7 +116,7 @@ const forgotPassword = catchAsync(async (req, res) => {
   if (!user) {
     throw new ApiError(
       httpStatus.BAD_REQUEST,
-      "No users found with this email"
+      "No users found with this email",
     );
   }
   // if(user.oneTimeCode === 'verified'){
@@ -138,7 +142,7 @@ const forgotPassword = catchAsync(async (req, res) => {
       status: "OK",
       statusCode: httpStatus.OK,
       data: {},
-    })
+    }),
   );
 });
 
@@ -150,7 +154,7 @@ const resetPassword = catchAsync(async (req, res) => {
       status: "OK",
       statusCode: httpStatus.OK,
       data: {},
-    })
+    }),
   );
 });
 
@@ -162,7 +166,7 @@ const changePassword = catchAsync(async (req, res) => {
       status: "OK",
       statusCode: httpStatus.OK,
       data: {},
-    })
+    }),
   );
 });
 
@@ -183,7 +187,7 @@ const verifyEmail = catchAsync(async (req, res) => {
       status: "OK",
       statusCode: httpStatus.OK,
       data: { user, tokens },
-    })
+    }),
   );
   // res.status(httpStatus.OK).send();
 });
@@ -196,7 +200,7 @@ const deleteMe = catchAsync(async (req, res) => {
       status: "OK",
       statusCode: httpStatus.OK,
       data: { user },
-    })
+    }),
   );
 });
 

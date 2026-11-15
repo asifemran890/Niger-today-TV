@@ -1,6 +1,6 @@
 const express = require("express");
 const auth = require("../../middlewares/auth");
-const { customerController } = require("../../controllers");
+const { customerController } = require("../controllers");
 
 const router = express.Router();
 
@@ -10,5 +10,11 @@ router.get("/:id", customerController.getCustomerById);
 router
   .route("/delete/:id")
   .delete(auth("admin"), customerController.deleteCustomerById);
+router
+  .route("/update/:id")
+  .put(auth("admin"), customerController.updateCustomerById);
+router
+  .route("/customer-list")
+  .get(auth("admin"), customerController.getDashboardStats);
 
 module.exports = router;

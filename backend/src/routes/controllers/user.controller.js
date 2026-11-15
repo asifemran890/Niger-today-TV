@@ -1,10 +1,10 @@
 const httpStatus = require("http-status");
-const pick = require("../utils/pick");
-const ApiError = require("../utils/ApiError");
-const catchAsync = require("../utils/catchAsync");
-const response = require("../config/response");
-const { userService } = require("../services");
-const unlinkImages = require("../common/unlinkImage");
+const pick = require("../../utils/pick");
+const ApiError = require("../../utils/ApiError");
+const catchAsync = require("../../utils/catchAsync");
+const response = require("../../config/response");
+const { userService } = require("../../services");
+const unlinkImages = require("../../common/unlinkImage");
 
 const createUser = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);
@@ -14,7 +14,7 @@ const createUser = catchAsync(async (req, res) => {
       status: "OK",
       statusCode: httpStatus.CREATED,
       data: user,
-    })
+    }),
   );
 });
 
@@ -28,7 +28,7 @@ const getUsers = catchAsync(async (req, res) => {
       status: "OK",
       statusCode: httpStatus.OK,
       data: result,
-    })
+    }),
   );
 });
 
@@ -55,7 +55,7 @@ const getProfile = catchAsync(async (req, res) => {
       status: "OK",
       statusCode: httpStatus.OK,
       data: { user, securitySettings },
-    })
+    }),
   );
 });
 
@@ -72,7 +72,7 @@ const getUser = catchAsync(async (req, res) => {
       status: "OK",
       statusCode: httpStatus.OK,
       data: user,
-    })
+    }),
   );
 });
 
@@ -99,7 +99,7 @@ const updateUser = catchAsync(async (req, res) => {
       status: "OK",
       statusCode: httpStatus.OK,
       data: user,
-    })
+    }),
   );
 });
 
@@ -110,7 +110,8 @@ const updateProfile = catchAsync(async (req, res) => {
 
   // Set fullName if firstName or lastName is provided
   if (!req.body.fullName && (req.body.firstName || req.body.lastName)) {
-    req.body.fullName = `${req.body.firstName || ''} ${req.body.lastName || ''}`.trim();
+    req.body.fullName =
+      `${req.body.firstName || ""} ${req.body.lastName || ""}`.trim();
   }
 
   const user = await userService.updateUserById(req.user.id, req.body);
@@ -121,7 +122,7 @@ const updateProfile = catchAsync(async (req, res) => {
       status: "OK",
       statusCode: httpStatus.OK,
       data: user,
-    })
+    }),
   );
 });
 
@@ -133,7 +134,7 @@ const deleteUser = catchAsync(async (req, res) => {
       status: "OK",
       statusCode: httpStatus.OK,
       data: {},
-    })
+    }),
   );
 });
 

@@ -1,8 +1,8 @@
 const httpStatus = require("http-status");
-const catchAsync = require("../utils/catchAsync");
-const response = require("../config/response");
-const { renewalService, customerService } = require("../services");
-const ApiError = require("../utils/ApiError");
+const catchAsync = require("../../utils/catchAsync");
+const response = require("../../config/response");
+const { renewalService, customerService } = require("../../services");
+const ApiError = require("../../utils/ApiError");
 
 // create renewal
 const createRenewal = catchAsync(async (req, res) => {
