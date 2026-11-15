@@ -7,5 +7,8 @@ const router = express.Router();
 router.route("/create").post(auth("admin"), customerController.createCustomer);
 router.route("/all").get(auth("admin"), customerController.getCustomerAll);
 router.get("/:id", customerController.getCustomerById);
+router
+  .route("/delete/:id")
+  .delete(auth("admin"), customerController.deleteCustomerById);
 
 module.exports = router;

@@ -18,8 +18,7 @@ const createCustomer = async (userBody) => {
   return Customer.create({ ...userBody, oneTimeCode });
 };
 
-
-//getCustomerAll 
+//getCustomerAll
 const getCustomerAll = async () => {
   const customers = await Customer.find();
   return customers;
@@ -33,7 +32,17 @@ const getCustomerById = async (customerId) => {
   }
   return customer;
 };
+//delete customerById
+const deleteCustomerById = async (customerId) => {
+  const customer = await Customer.findByIdAndDelete(customerId);
+  if (!customer) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Customer not found");
+  }
+  return customer;
+};
 module.exports = {
   createCustomer,
-  getCustomerAll, getCustomerById,
+  getCustomerAll,
+  getCustomerById,
+  deleteCustomerById,
 };
