@@ -1,13 +1,13 @@
 const httpStatus = require("http-status");
-const catchAsync = require("../../utils/catchAsync");
-const ApiError = require("../../utils/ApiError");
-const response = require("../../config/response");
+const catchAsync = require("../utils/catchAsync");
+const ApiError = require("../utils/ApiError");
+const response = require("../config/response");
 const {
   authService,
   userService,
   tokenService,
   emailService,
-} = require("../../services");
+} = require("../services");
 
 const register = catchAsync(async (req, res) => {
   const { email, fullName, firstName, lastName, ...rest } = req.body;
