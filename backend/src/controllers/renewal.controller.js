@@ -39,7 +39,24 @@ const getRenewalAll = catchAsync(async (req, res) => {
     }),
   );
 });
+//update renewal
+const updateRenewal = catchAsync(async (req, res) => {
+  const renewal = await renewalService.updateRenewal(
+    req.params.customerId,
+    req.body,
+  );
+  res.status(httpStatus.OK).json(
+    response({
+      message: "Renewal Updated",
+      status: "OK",
+      statusCode: httpStatus.OK,
+      data: renewal,
+    }),
+  );
+});
+
 module.exports = {
   createRenewal,
   getRenewalAll,
+  updateRenewal,
 };

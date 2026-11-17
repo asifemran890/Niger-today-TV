@@ -11,13 +11,26 @@ const createRenewal = async (renewalBody) => {
   return renewal;
 };
 
-//get Renewal All 
+//get Renewal All
 const getRenewalAll = async () => {
   const renewals = await Renewal.find();
   return renewals;
 };
+//update renewal
+const updateRenewal = async (renewalId, updateBody) => {
+  const renewal = await Renewal.findByIdAndUpdate(renewalId, updateBody, {
+    new: true,
+  });
 
+  console.log(renewal);
+  if (!renewal) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Renewal not found");
+  }
+  return renewal;
+};
 
 module.exports = {
-  createRenewal, getRenewalAll
+  createRenewal,
+  getRenewalAll,
+  updateRenewal,
 };
